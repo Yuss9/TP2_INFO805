@@ -94,3 +94,6 @@ expr ::=
        | ENTIER:n               {: RESULT = new Arbre(TypeNode.ENTIER, n.toString()); :}
        | IDENT:id               {: RESULT = new Arbre(TypeNode.IDENT, id.toString()); :}
        | PAR_G sequence:e PAR_D {: RESULT = e; :};
+
+// expression → IF expression THEN expression ELSE expression
+//expression → WHILE expression DO expression
