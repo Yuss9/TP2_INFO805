@@ -16,7 +16,5 @@ public class Main {
 		parser p = new parser(yy);
 		Symbol result = p.parse();
 		Arbre a = (Arbre)result.value;
-		//System.out.print(a.toString());
-		System.out.print(a.generation());
-	}
+		System.out.print(a.toString());}
 }
