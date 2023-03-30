@@ -6,8 +6,6 @@ import static fr.usmb.m1isc.compilation.tp.TypeNode.*;
 import static java.util.Objects.isNull;
 
 public class Arbre {
-
-
     private TypeNode type;
     private String racine;
     private Arbre fg, fd;
@@ -50,18 +48,64 @@ public class Arbre {
         return resultat;
     }
 
-    /*
-    exemple de fichier source de l'analyseur
-    12 + 5;             *//* ceci est un commentaire *//*
-    10 / 2 - 3;  99;    *//* le point-virgule sépare les expressions à évaluer *//*
-     *//*
-     l'évaluation donne toujours un nombre entier *//*
-    ((30 * 1) + 4) mod 2; *//* opérateurs binaires *//*
-     3 * -4;
-    *//* attention à l'opérateur unaire *//*
+    public void genData(ArrayList<String> listData) {
+        if (!isNull(this.fg)) {
+            this.fg.genData(listData);
+        }
+        if (!isNull(this.fd)) {
+            this.fd.genData(listData);
+        }
+        if ((this.type == IDENT) && (!listData.contains(this.racine))) {
+            listData.add(this.racine);
+        }
+    }
 
-    let prixHt = 200;   *//* une variable prend valeur lors de sa déclaration *//*
-    let prixTtc =  prixHt * 119 / 100;
-    prixTtc + 100.
-    */
+    public String genCode() {
+        String resultat = "";
+        if (!isNull(this.fg)) {
+            resultat += this.fg.genCode();
+        }
+        if (!isNull(this.fd)) {
+            resultat += this.fd.genCode();
+        }
+        if (this.type == ENTIER) {
+            resultat += "\tpush eax\n";
+            resultat += "\tmov eax, " + this.racine + "\n";
+        } else if (this.type == OPERATEUR) {
+            if (this.racine.equals("+")) {
+                resultat += "\tpop ebx\n";
+                resultat += "\tadd eax, ebx\n";
+            } else if (this.racine.equals("-")) {
+                resultat += "\tpop ebx\n";
+                resultat += "\tsub ebx, eax\n";
+                resultat += "\tmov eax, ebx\n";
+            } else if (this.racine.equals("*")) {
+                resultat += "\tpop ebx\n";
+                resultat += "\tmul eax, ebx\n";
+            } else if (this.racine.equals("/")) {
+                resultat += "\tpop ebx\n";
+                resultat += "\tdiv ebx, eax\n";
+                resultat += "\tmov eax, ebx\n";
+            }
+        } else if (this.type == LET) {
+            resultat += "\tmov "+this.fg.racine+",eax \n";
+            resultat += "\tmov eax, "+this.fg.racine+" \n";
+        }
+        return resultat;
+    }
+
+
+    public String generation() {
+        String resultat = "DATA SEGMENT\n";
+        ArrayList<String> listData = new ArrayList<>();
+        this.genData(listData);
+        for(int i = 0; i < listData.size(); i++){
+            resultat += "\t " + listData.get(i) + " DD\n";
+        }
+        resultat += "DATA ENDS\n";
+        resultat += "CODE SEGMENT\n";
+        resultat += this.genCode();
+        resultat += "CODE ENDS";
+        return resultat;
+    }
 }
