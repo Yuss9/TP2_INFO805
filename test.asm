@@ -5,8 +5,8 @@ DATA ENDS
 CODE SEGMENT
 	push eax
 	mov eax, 200
-	mov prixHt,eax 
-	mov eax, prixHt 
+	mov prixHt,eax
+	mov eax, prixHt
 	push eax
 	mov eax, 119
 	pop ebx
@@ -16,6 +16,6 @@ CODE SEGMENT
 	pop ebx
 	div ebx, eax
 	mov eax, ebx
-	mov prixTtc,eax 
-	mov eax, prixTtc 
+	mov prixTtc,eax
+	mov eax, prixTtc
 CODE ENDS

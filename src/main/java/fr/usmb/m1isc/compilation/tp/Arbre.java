@@ -88,8 +88,13 @@ public class Arbre {
                 resultat += "\tmov eax, ebx\n";
             }
         } else if (this.type == LET) {
-            resultat += "\tmov "+this.fg.racine+",eax \n";
-            resultat += "\tmov eax, "+this.fg.racine+" \n";
+            resultat += "\tmov "+this.fg.racine+",eax\n";
+            resultat += "\tmov eax, "+this.fg.racine+"\n";
+        }else if (this.type == INPUT) {
+            resultat += "\tin eax\n";
+        } else if(this.type == OUTPUT) {
+            resultat += "\tmov eax, "+this.racine+"\n";
+            resultat += "\tout eax\n";
         }
         return resultat;
     }
@@ -99,7 +104,7 @@ public class Arbre {
         ArrayList<String> listData = new ArrayList<>();
         this.genData(listData);
         for(int i = 0; i < listData.size(); i++){
-            resultat += "\t " + listData.get(i) + " DD\n";
+            resultat += "\t "+listData.get(i)+" DD\n";
         }
         resultat += "DATA ENDS\n";
         resultat += "CODE SEGMENT\n";
