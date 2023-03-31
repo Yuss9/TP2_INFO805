@@ -94,7 +94,6 @@ public class Arbre {
         return resultat;
     }
 
-
     public String generation() {
         String resultat = "DATA SEGMENT\n";
         ArrayList<String> listData = new ArrayList<>();
