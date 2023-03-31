@@ -192,6 +192,21 @@ public class Arbre {
             resultat.append( "sortie_while_1:\n");
             return resultat.toString();
         }
+
+        // ajout des ifs
+        // gère les if
+        else if (this.type == IF) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tjz faux_if_1\n");
+            resultat.append( this.fd.fg.genCode());
+            resultat.append( "\tjmp sortie_if_1\n");
+            resultat.append( "faux_if_1 :\n");
+            resultat.append( this.fd.fd.genCode());
+            resultat.append( "sortie_if_1 :\n");
+            return resultat.toString();
+        }
+
+
         return resultat.toString();
     }
 
@@ -209,4 +224,7 @@ public class Arbre {
         resultat.append("CODE ENDS");
         return resultat.toString();
     }
+
+
+
 }
