@@ -183,6 +183,15 @@ public class Arbre {
             resultat.append( "\tsub eax, ecx\n");
             return resultat.toString();
         }
+        else if(this.type == WHILE){
+            resultat.append( "debut_while_1:\n");
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tjz sortie_while_1\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tjmp debut_while_1\n");
+            resultat.append( "sortie_while_1:\n");
+            return resultat.toString();
+        }
         return resultat.toString();
     }
 
