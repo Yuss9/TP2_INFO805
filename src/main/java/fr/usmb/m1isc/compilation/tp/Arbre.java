@@ -222,6 +222,16 @@ public class Arbre {
             return resultat.toString();
         }
 
+        else if (this.type == NOT) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tjnz faux_not_1\n");
+            resultat.append( "\tmov eax, 1\n");
+            resultat.append( "\tjmp sortie_not_1\n");
+            resultat.append( "faux_not_1 :\n");
+            resultat.append( "\tmov eax, 0\n");
+            resultat.append( "sortie_not_1 :\n");
+            return resultat.toString();
+        }
 
         return resultat.toString();
     }
