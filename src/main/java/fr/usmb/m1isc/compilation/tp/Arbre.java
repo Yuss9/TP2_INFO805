@@ -129,6 +129,36 @@ public class Arbre {
             resultat.append( "sortie_lte_1 :\n");
             return resultat.toString();
         }
+        else if (this.type == GT) {
+            resultat.append(this.fg.genCode());
+            resultat.append("\tpush eax\n");
+            resultat.append(this.fd.genCode());
+            resultat.append("\tpop ebx\n");
+            resultat.append("\tsub eax, ebx\n");
+            resultat.append("\tjge faux_gt_1\n");
+            resultat.append("\tmov eax, 1\n");
+            resultat.append("\tjmp sortie_gt_1\n");
+            resultat.append("faux_gt_1 :\n");
+            resultat.append("\tmov eax, 0\n");
+            resultat.append("sortie_gt_1 :\n");
+            return resultat.toString();
+        }
+
+        // gère les supérieurs ou égal
+        else if (this.type == GTE) {
+            resultat.append(this.fg.genCode());
+            resultat.append("\tpush eax\n");
+            resultat.append(this.fd.genCode());
+            resultat.append("\tpop ebx\n");
+            resultat.append("\tsub eax, ebx\n");
+            resultat.append("\tjg faux_gte_1\n");
+            resultat.append("\tmov eax, 1\n");
+            resultat.append("\tjmp sortie_gte_1\n");
+            resultat.append("faux_gte_1 :\n");
+            resultat.append("\tmov eax, 0\n");
+            resultat.append("sortie_gte_1 :\n");
+            return resultat.toString();
+        }
         return resultat.toString();
     }
 
