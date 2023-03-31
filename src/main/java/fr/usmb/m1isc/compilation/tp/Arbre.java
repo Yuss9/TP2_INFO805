@@ -193,8 +193,6 @@ public class Arbre {
             return resultat.toString();
         }
 
-        // ajout des ifs
-        // gère les if
         else if (this.type == IF) {
             resultat.append( this.fg.genCode());
             resultat.append( "\tjz faux_if_1\n");
@@ -203,6 +201,24 @@ public class Arbre {
             resultat.append( "faux_if_1 :\n");
             resultat.append( this.fd.fd.genCode());
             resultat.append( "sortie_if_1 :\n");
+            return resultat.toString();
+        }
+
+        else if (this.type == AND) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tjz faux_and_1\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "faux_and_1 :\n");
+            return resultat.toString();
+        }
+
+
+        else if (this.type == OR) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tjnz vrai_or_1\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tjnz vrai_or_1\n");
+            resultat.append( "vrai_or_1 :\n");
             return resultat.toString();
         }
 
