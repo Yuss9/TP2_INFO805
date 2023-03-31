@@ -49,67 +49,73 @@ public class Arbre {
     }
 
     public void genData(ArrayList<String> listData) {
-        if (!isNull(this.fg)) {
+        if (this.fg != null) {
             this.fg.genData(listData);
         }
-        if (!isNull(this.fd)) {
+        if (this.fd != null) {
             this.fd.genData(listData);
         }
-        if ((this.type == IDENT) && (!listData.contains(this.racine))) {
+        if (this.type == IDENT && !listData.contains(this.racine)) {
             listData.add(this.racine);
         }
     }
 
     public String genCode() {
-        String resultat = "";
-        if (!isNull(this.fg)) {
-            resultat += this.fg.genCode();
+        StringBuilder resultat = new StringBuilder();
+
+        if (this.type == SEMI) {
+            return this.fg.genCode() + this.fd.genCode();
         }
-        if (!isNull(this.fd)) {
-            resultat += this.fd.genCode();
-        }
-        if (this.type == ENTIER) {
-            resultat += "\tpush eax\n";
-            resultat += "\tmov eax, " + this.racine + "\n";
+
+        if (this.type == ENTIER || this.type == IDENT) {
+            resultat.append("\tmov eax, ").append(this.racine).append("\n");
         } else if (this.type == OPERATEUR) {
-            if (this.racine.equals("+")) {
-                resultat += "\tpop ebx\n";
-                resultat += "\tadd eax, ebx\n";
-            } else if (this.racine.equals("-")) {
-                resultat += "\tpop ebx\n";
-                resultat += "\tsub ebx, eax\n";
-                resultat += "\tmov eax, ebx\n";
-            } else if (this.racine.equals("*")) {
-                resultat += "\tpop ebx\n";
-                resultat += "\tmul eax, ebx\n";
-            } else if (this.racine.equals("/")) {
-                resultat += "\tpop ebx\n";
-                resultat += "\tdiv ebx, eax\n";
-                resultat += "\tmov eax, ebx\n";
+            resultat.append(this.fg.genCode());
+            resultat.append("\tpush eax\n");
+            resultat.append(this.fd.genCode());
+            resultat.append("\tpop ebx\n");
+            switch (this.racine) {
+                case "+":
+                    resultat.append("\tadd eax, ebx\n");
+                    break;
+                case "-":
+                    resultat.append("\tsub ebx, eax\n");
+                    resultat.append("\tmov eax, ebx\n");
+                    break;
+                case "*":
+                    resultat.append("\tmul eax, ebx\n");
+                    break;
+                case "/":
+                    resultat.append("\tdiv ebx, eax\n");
+                    resultat.append("\tmov eax, ebx\n");
+                    break;
+                default:
+                    break;
             }
         } else if (this.type == LET) {
-            resultat += "\tmov "+this.fg.racine+",eax\n";
-            resultat += "\tmov eax, "+this.fg.racine+"\n";
-        }else if (this.type == INPUT) {
-            resultat += "\tin eax\n";
-        } else if(this.type == OUTPUT) {
-            resultat += "\tmov eax, "+this.racine+"\n";
-            resultat += "\tout eax\n";
+            resultat.append(this.fd.genCode());
+            resultat.append("\tmov ").append(this.fg.racine).append(", eax\n");
+        } else if (this.type == INPUT) {
+            resultat.append("\tin eax\n");
+        } else if (this.type == OUTPUT) {
+            resultat.append("\tmov eax, ").append(this.racine).append("\n");
+            resultat.append("\tout eax\n");
         }
-        return resultat;
+        return resultat.toString();
     }
 
     public String generation() {
-        String resultat = "DATA SEGMENT\n";
+        StringBuilder resultat = new StringBuilder();
+        resultat.append("DATA SEGMENT\n");
         ArrayList<String> listData = new ArrayList<>();
         this.genData(listData);
-        for(int i = 0; i < listData.size(); i++){
-            resultat += "\t "+listData.get(i)+" DD\n";
+        for(String data : listData){
+            resultat.append("\t ").append(data).append(" DD\n");
         }
-        resultat += "DATA ENDS\n";
-        resultat += "CODE SEGMENT\n";
-        resultat += this.genCode();
-        resultat += "CODE ENDS";
-        return resultat;
+        resultat.append("DATA ENDS\n");
+        resultat.append("CODE SEGMENT\n");
+        resultat.append(this.genCode());
+        resultat.append("CODE ENDS");
+        return resultat.toString();
     }
 }
