@@ -144,7 +144,6 @@ public class Arbre {
             return resultat.toString();
         }
 
-        // gère les supérieurs ou égal
         else if (this.type == GTE) {
             resultat.append(this.fg.genCode());
             resultat.append("\tpush eax\n");
@@ -157,6 +156,31 @@ public class Arbre {
             resultat.append("faux_gte_1 :\n");
             resultat.append("\tmov eax, 0\n");
             resultat.append("sortie_gte_1 :\n");
+            return resultat.toString();
+        }
+        else if (this.type == EGAL) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tpush eax\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tpop ebx\n");
+            resultat.append( "\tsub eax, ebx\n");
+            resultat.append( "\tjnz faux_egal_1\n");
+            resultat.append( "\tmov eax, 1\n");
+            resultat.append( "\tjmp sortie_egal_1\n");
+            resultat.append( "faux_egal_1 :\n");
+            resultat.append( "\tmov eax, 0\n");
+            resultat.append( "sortie_egal_1 :\n");
+            return resultat.toString();
+        }
+        else if (this.type == MOD) {
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tpush eax\n");
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tpop ebx\n");
+            resultat.append( "\tmov ecx, eax\n");
+            resultat.append( "\tdiv ecx, ebx\n");
+            resultat.append( "\tmul ecx, ebx\n");
+            resultat.append( "\tsub eax, ecx\n");
             return resultat.toString();
         }
         return resultat.toString();
