@@ -100,6 +100,34 @@ public class Arbre {
         } else if (this.type == OUTPUT) {
             resultat.append("\tmov eax, ").append(this.racine).append("\n");
             resultat.append("\tout eax\n");
+        }else if (this.type == LT) {
+            resultat.append(this.fg.genCode());
+            resultat.append( "\tpush eax\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tpop ebx\n");
+            resultat.append( "\tsub eax, ebx\n");
+            resultat.append( "\tjle faux_lt_1\n");
+            resultat.append( "\tmov eax, 1\n");
+            resultat.append( "\tjmp sortie_lt_1\n");
+            resultat.append( "faux_lt_1 :\n");
+            resultat.append( "\tmov eax, 0\n");
+            resultat.append( "sortie_lt_1 :\n");
+            return resultat.toString();
+        }
+
+        else if (this.type == LTE) {
+            resultat.append( this.fg.genCode());
+            resultat.append( "\tpush eax\n");
+            resultat.append( this.fd.genCode());
+            resultat.append( "\tpop ebx\n");
+            resultat.append( "\tsub eax, ebx\n");
+            resultat.append( "\tjl faux_lte_1\n");
+            resultat.append( "\tmov eax, 1\n");
+            resultat.append( "\tjmp sortie_lte_1\n");
+            resultat.append( "faux_lte_1 :\n");
+            resultat.append( "\tmov eax, 0\n");
+            resultat.append( "sortie_lte_1 :\n");
+            return resultat.toString();
         }
         return resultat.toString();
     }

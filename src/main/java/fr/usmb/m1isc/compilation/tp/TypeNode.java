@@ -23,4 +23,3 @@ public enum TypeNode {
     LET,
     SEMI
 }
-
