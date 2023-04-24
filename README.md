@@ -3,6 +3,41 @@
 
 L'objectif du TP est d'utiliser les outils JFlex et CUP pour générer des arbres abstraits correspondant à un sous ensemble du langage **λ-ada**.
 
+## Membres du groupe
+- YURTSEVEN Hüseyin
+- DELIFER Paul
+
+
+
+
+
+## Comment run notre code ? 
+
+Dans notre repository nous avons deux fichiers textes, ayant les noms suivants : 
+- testEx1.txt 
+- testEx2.txt
+
+Les fichiers textes correspondent aux exercices pour générer le code.
+
+Pour tester l'exercice 1, veuillez lancer cette commande :
+
+```bash
+java -jar build/libs/I805_TP2_Lambada.jar testEx1.txt > test.asm
+```
+
+Le résultat de l'exercice est stocké dans le fichier test.asm.
+
+### Attention, il faut avoir vidé le fichier test.asm
+
+Pour tester l'exercice 2, veuillez lancer cette commande :
+
+```bash
+java -jar build/libs/I805_TP2_Lambada.jar testEx2.txt > test.asm
+```
+
+Le résultat de l'exercice est stocké dans le fichier test.asm.
+
+
 ## Exercice 1 :
 
 Utiliser JFlex et CUP pour générer l'arbre abstrait correspondant à l'analyse d'expressions arithmétiques sur les nombres entiers.
@@ -183,39 +218,6 @@ sortie_while_1:
 CODE ENDS
 ```
 
-## Membres du groupe
-- YURTSEVEN Hüseyin
-- DELIFER Paul
-
-
-
-
-
-## Comment run notre code ? 
-
-Dans notre repository nous avons deux fichiers textes, ayant les noms suivants : 
-- testEx1.txt 
-- testEx2.txt
-
-Les fichiers textes correspondent aux exercices pour générer le code.
-
-Pour tester l'exercice 1, veuillez lancer cette commande :
-
-```bash
-java -jar build/libs/I805_TP2_Lambada.jar testEx1.txt > test.asm
-```
-
-Le résultat de l'exercice est stocké dans le fichier test.asm.
-
-### Attention, il faut avoir vidé le fichier test.asm
-
-Pour tester l'exercice 2, veuillez lancer cette commande :
-
-```bash
-java -jar build/libs/I805_TP2_Lambada.jar testEx2.txt > test.asm
-```
-
-Le résultat de l'exercice est stocké dans le fichier test.asm.
 
 
 
