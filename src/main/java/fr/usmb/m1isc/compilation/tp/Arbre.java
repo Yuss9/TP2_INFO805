@@ -135,7 +135,7 @@ public class Arbre {
             resultat.append(this.fd.genCode());
             resultat.append("\tpop ebx\n");
             resultat.append("\tsub eax, ebx\n");
-            resultat.append("\tjge faux_gt_1\n");
+            resultat.append("\jle faux_gt_1\n");
             resultat.append("\tmov eax, 1\n");
             resultat.append("\tjmp sortie_gt_1\n");
             resultat.append("faux_gt_1 :\n");
