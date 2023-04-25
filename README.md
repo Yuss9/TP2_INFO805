@@ -22,7 +22,7 @@ Les fichiers textes correspondent aux exercices pour générer le code.
 Pour tester l'exercice 1, veuillez lancer cette commande :
 
 ```bash
-java -jar build/libs/I805_TP2_Lambada.jar testEx1.txt > test.asm
+java -jar build/libs/TP2_INFO805.jar testEx1.txt > test.asm
 ```
 
 Le résultat de l'exercice est stocké dans le fichier test.asm.
@@ -32,7 +32,7 @@ Le résultat de l'exercice est stocké dans le fichier test.asm.
 Pour tester l'exercice 2, veuillez lancer cette commande :
 
 ```bash
-java -jar build/libs/I805_TP2_Lambada.jar testEx2.txt > test.asm
+java -jar build/libs/TP2_INFO805.jar testEx2.txt > test.asm
 ```
 
 Le résultat de l'exercice est stocké dans le fichier test.asm.
