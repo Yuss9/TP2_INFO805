@@ -19,6 +19,18 @@ Dans notre repository nous avons deux fichiers textes, ayant les noms suivants :
 
 Les fichiers textes correspondent aux exercices pour générer le code.
 
+### Avant de commencer, veuillez générer le .jar : 
+```bash
+./gradlew clean
+```
+
+et 
+
+```bash
+./gradlew build
+```
+
+
 Pour tester l'exercice 1, veuillez lancer cette commande :
 
 ```bash
